@@ -1,18 +1,41 @@
+import { useState } from 'react';
 import './App.scss';
 import Footer from './components/Footer';
 import NewTaskForm from './components/NewTaskForm';
 import TaskList from './components/TaskList';
 
-const tasks = [
-  { id: 1, completed: true, title: 'Completed task', createdTime: new Date() },
-  { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
-  { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
-];
+export default function App() {
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      completed: true,
+      title: 'Completed task',
+      createdTime: new Date(),
+    },
+    { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
+    { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
+  ]);
 
-function App() {
   const isntCompletedTasksLength = tasks.filter(
     ({ completed }) => !completed
   ).length;
+
+  function changeTaskCompleted(id) {
+    const indexTask = tasks.findIndex((item) => item.id === id);
+
+    const newTasks = tasks.toSpliced(indexTask, 1, {
+      ...tasks[indexTask],
+      completed: !tasks[indexTask].completed,
+    });
+
+    setTasks(newTasks);
+  }
+
+  function deleteTask(id) {
+    const indexTask = tasks.findIndex((item) => item.id === id);
+    const newTasks = tasks.toSpliced(indexTask, 1);
+    setTasks(newTasks);
+  }
 
   return (
     <>
@@ -22,12 +45,14 @@ function App() {
           <NewTaskForm />
         </header>
         <section className="main">
-          <TaskList tasks={tasks} />
+          <TaskList
+            tasks={tasks}
+            changeTaskCompleted={changeTaskCompleted}
+            deleteTask={deleteTask}
+          />
           <Footer isntCompletedTasksLength={isntCompletedTasksLength} />
         </section>
       </section>
     </>
   );
 }
-
-export default App;
