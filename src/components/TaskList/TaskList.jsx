@@ -3,7 +3,7 @@ import './TaskList.scss';
 import Task from '../Task';
 
 export default function TaskList({ tasks, changeTaskCompleted, deleteTask }) {
-  return (
+  return tasks.length ? (
     <ul className="todo-list">
       {tasks.map((task) => (
         <Task
@@ -14,5 +14,7 @@ export default function TaskList({ tasks, changeTaskCompleted, deleteTask }) {
         />
       ))}
     </ul>
+  ) : (
+    <div className="empty-tasks">Not available tasks</div>
   );
 }

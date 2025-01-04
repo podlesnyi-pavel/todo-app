@@ -1,24 +1,15 @@
-import { useState } from 'react';
 import './App.scss';
-import Footer from './components/Footer';
-import NewTaskForm from './components/NewTaskForm';
-import TaskList from './components/TaskList';
+import { filterStatuses } from '~/constants/filterStatuses.js';
+
+import { useState } from 'react';
+
+import Footer from '@/Footer';
+import NewTaskForm from '@/NewTaskForm';
+import TaskList from '@/TaskList';
 
 export default function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      completed: true,
-      title: 'Completed task',
-      createdTime: new Date(),
-    },
-    { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
-    { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
-  ]);
-
-  const isntCompletedTasksLength = tasks.filter(
-    ({ completed }) => !completed
-  ).length;
+  const [tasks, setTasks] = useState(initialTasks);
+  const [filterStatus, setFilterStatus] = useState(filterStatuses.all);
 
   function changeTaskCompleted(id) {
     const indexTask = tasks.findIndex((item) => item.id === id);
@@ -37,22 +28,74 @@ export default function App() {
     setTasks(newTasks);
   }
 
+  function handleAddTask(text) {
+    const newTask = {
+      id: tasks.at(-1).id + 1,
+      completed: false,
+      title: text,
+      createdTime: new Date(),
+    };
+
+    setTasks([...tasks, newTask]);
+  }
+
+  function handleFilterStatus(status) {
+    setFilterStatus(status);
+  }
+
+  function handleClearCompletedTasks() {
+    setTasks(tasks.filter((task) => !task.completed));
+  }
+
+  function getCurrentTasks() {
+    switch (filterStatus) {
+      case filterStatuses.active:
+        return tasks.filter((task) => !task.completed);
+
+      case filterStatuses.completed:
+        return tasks.filter((task) => task.completed);
+
+      default:
+        return tasks;
+    }
+  }
+
+  const notCompletedTasksLength = tasks.filter(
+    ({ completed }) => !completed
+  ).length;
+
   return (
     <>
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          <NewTaskForm />
+          <NewTaskForm onAddTask={handleAddTask} />
         </header>
         <section className="main">
           <TaskList
-            tasks={tasks}
+            tasks={getCurrentTasks()}
             changeTaskCompleted={changeTaskCompleted}
             deleteTask={deleteTask}
           />
-          <Footer isntCompletedTasksLength={isntCompletedTasksLength} />
+          <Footer
+            notCompletedTasksLength={notCompletedTasksLength}
+            filterStatus={filterStatus}
+            onChangeFilterStatus={handleFilterStatus}
+            onClearCompletedTask={handleClearCompletedTasks}
+          />
         </section>
       </section>
     </>
   );
 }
+
+const initialTasks = [
+  {
+    id: 1,
+    completed: true,
+    title: 'Completed task',
+    createdTime: new Date(),
+  },
+  { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
+  { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
+];

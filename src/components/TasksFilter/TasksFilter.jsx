@@ -1,17 +1,32 @@
 import './TasksFilter.scss';
+import { filterStatuses } from '~/constants/filterStatuses.js';
 
-export default function TasksFilter() {
+function TasksFilterItem({ typeFilter, filterStatus, onChangeFilterStatus }) {
+  return (
+    <li className="filters__item">
+      <button
+        className={`filters__filter ${
+          filterStatus === typeFilter ? 'selected' : ''
+        }`}
+        onClick={() => onChangeFilterStatus(typeFilter)}
+      >
+        {typeFilter}
+      </button>
+    </li>
+  );
+}
+
+export default function TasksFilter({ filterStatus, onChangeFilterStatus }) {
   return (
     <ul className="filters">
-      <li className="filters__item">
-        <button className="filters__filter selected">All</button>
-      </li>
-      <li className="filters__item">
-        <button className="filters__filter">Active</button>
-      </li>
-      <li className="filters__item">
-        <button className="filters__filter">Completed</button>
-      </li>
+      {Object.values(filterStatuses).map((status) => (
+        <TasksFilterItem
+          key={status}
+          typeFilter={status}
+          filterStatus={filterStatus}
+          onChangeFilterStatus={onChangeFilterStatus}
+        />
+      ))}
     </ul>
   );
 }

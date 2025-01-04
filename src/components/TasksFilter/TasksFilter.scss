@@ -4,7 +4,7 @@
   list-style: none;
 
   &__item {
-    display: inline;
+    display: inline-block;
     cursor: default;
 
     &:hover {
