@@ -7,11 +7,22 @@ import Footer from '@/Footer';
 import NewTaskForm from '@/NewTaskForm';
 import TaskList from '@/TaskList';
 
+const initialTasks = [
+  {
+    id: 1,
+    completed: true,
+    title: 'Completed task',
+    createdTime: new Date(),
+  },
+  { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
+  { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
+];
+
 export default function App() {
   const [tasks, setTasks] = useState(initialTasks);
   const [filterStatus, setFilterStatus] = useState(filterStatuses.all);
 
-  function changeTaskCompleted(id) {
+  function onChangeTaskCompleted(id) {
     const indexTask = tasks.findIndex((item) => item.id === id);
 
     const newTasks = tasks.toSpliced(indexTask, 1, {
@@ -22,7 +33,7 @@ export default function App() {
     setTasks(newTasks);
   }
 
-  function deleteTask(id) {
+  function onDeleteTask(id) {
     const indexTask = tasks.findIndex((item) => item.id === id);
     const newTasks = tasks.toSpliced(indexTask, 1);
     setTasks(newTasks);
@@ -43,7 +54,7 @@ export default function App() {
     setFilterStatus(status);
   }
 
-  function handleClearCompletedTasks() {
+  function onClearCompletedTasks() {
     setTasks(tasks.filter((task) => !task.completed));
   }
 
@@ -74,28 +85,17 @@ export default function App() {
         <section className="main">
           <TaskList
             tasks={getCurrentTasks()}
-            changeTaskCompleted={changeTaskCompleted}
-            deleteTask={deleteTask}
+            onChangeTaskCompleted={onChangeTaskCompleted}
+            onDeleteTask={onDeleteTask}
           />
           <Footer
             notCompletedTasksLength={notCompletedTasksLength}
             filterStatus={filterStatus}
             onChangeFilterStatus={handleFilterStatus}
-            onClearCompletedTask={handleClearCompletedTasks}
+            onClearCompletedTask={onClearCompletedTasks}
           />
         </section>
       </section>
     </>
   );
 }
-
-const initialTasks = [
-  {
-    id: 1,
-    completed: true,
-    title: 'Completed task',
-    createdTime: new Date(),
-  },
-  { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
-  { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
-];

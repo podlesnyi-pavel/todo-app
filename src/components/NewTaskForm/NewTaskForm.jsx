@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './NewTaskForm.scss';
 
-export default function NewTaskForm({ onAddTask }) {
+export default function NewTaskForm({ onAddTask = () => {} }) {
   const [text, setText] = useState('');
 
   function handleSubmit(e) {

@@ -1,16 +1,20 @@
 import './TaskList.scss';
 
-import Task from '../Task';
+import Task from '@/Task';
 
-export default function TaskList({ tasks, changeTaskCompleted, deleteTask }) {
+export default function TaskList({
+  tasks = [],
+  onChangeTaskCompleted = () => {},
+  onDeleteTask = () => {},
+}) {
   return tasks.length ? (
     <ul className="todo-list">
       {tasks.map((task) => (
         <Task
           key={task.id}
           {...task}
-          changeTaskCompleted={changeTaskCompleted}
-          deleteTask={deleteTask}
+          onChangeTaskCompleted={onChangeTaskCompleted}
+          onDeleteTask={onDeleteTask}
         />
       ))}
     </ul>

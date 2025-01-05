@@ -1,12 +1,12 @@
 import './Footer.scss';
 
-import TasksFilter from '../TasksFilter';
+import TasksFilter from '@/TasksFilter';
 
 export default function Footer({
-  notCompletedTasksLength,
-  filterStatus,
-  onChangeFilterStatus,
-  onClearCompletedTask,
+  notCompletedTasksLength = 0,
+  filterStatus = '',
+  onChangeFilterStatus = () => {},
+  onClearCompletedTask = () => {},
 }) {
   return (
     <footer className="footer">

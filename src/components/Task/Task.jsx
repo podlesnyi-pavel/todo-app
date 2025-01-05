@@ -1,12 +1,14 @@
 import './Task.scss';
 import { useState } from 'react';
+import { formatDistanceToNow } from 'date-fns';
 
 export default function Task({
-  id,
-  completed,
-  title,
-  changeTaskCompleted,
-  deleteTask,
+  id = 0,
+  completed = false,
+  title = '',
+  createdTime = new Date(),
+  onChangeTaskCompleted = () => {},
+  onDeleteTask = () => {},
 }) {
   const [isEdit, setIsEdit] = useState(false);
 
@@ -21,14 +23,19 @@ export default function Task({
           className="task__toggle"
           type="checkbox"
           checked={completed}
-          onChange={() => changeTaskCompleted(id)}
+          onChange={() => onChangeTaskCompleted(id)}
         />
         <label>
           <span className="task__description">{title}</span>
-          <span className="task__created">created 17 seconds ago</span>
+          <span className="task__created">
+            {formatDistanceToNow(createdTime, { includeSeconds: true })}
+          </span>
         </label>
         <button className="icon icon--edit" onClick={() => setIsEdit(true)} />
-        <button className="icon icon--destroy" onClick={() => deleteTask(id)} />
+        <button
+          className="icon icon--destroy"
+          onClick={() => onDeleteTask(id)}
+        />
       </div>
       <input type="text" className="task__edit" defaultValue={title} />
     </li>

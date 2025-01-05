@@ -1,7 +1,11 @@
 import './TasksFilter.scss';
 import { filterStatuses } from '~/constants/filterStatuses.js';
 
-function TasksFilterItem({ typeFilter, filterStatus, onChangeFilterStatus }) {
+function TasksFilterItem({
+  typeFilter = '',
+  filterStatus = '',
+  onChangeFilterStatus = () => {},
+}) {
   return (
     <li className="filters__item">
       <button
@@ -16,7 +20,10 @@ function TasksFilterItem({ typeFilter, filterStatus, onChangeFilterStatus }) {
   );
 }
 
-export default function TasksFilter({ filterStatus, onChangeFilterStatus }) {
+export default function TasksFilter({
+  filterStatus = '',
+  onChangeFilterStatus = () => {},
+}) {
   return (
     <ul className="filters">
       {Object.values(filterStatuses).map((status) => (
