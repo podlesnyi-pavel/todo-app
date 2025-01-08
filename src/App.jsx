@@ -57,6 +57,10 @@ export default function App() {
   function onClearCompletedTasks() {
     setTasks(tasks.filter((task) => !task.completed));
   }
+  function onChangeTaskTitle(id, title) {
+    const index = tasks.findIndex((task) => task.id === id);
+    setTasks(tasks.toSpliced(index, 1, { ...tasks[index], title: title }));
+  }
 
   function getCurrentTasks() {
     switch (filterStatus) {
@@ -87,6 +91,7 @@ export default function App() {
             tasks={getCurrentTasks()}
             onChangeTaskCompleted={onChangeTaskCompleted}
             onDeleteTask={onDeleteTask}
+            onChangeTaskTitle={onChangeTaskTitle}
           />
           <Footer
             notCompletedTasksLength={notCompletedTasksLength}

@@ -8,12 +8,14 @@ TaskList.propTypes = {
   tasks: PropTypes.array,
   onChangeTaskCompleted: PropTypes.func,
   onDeleteTask: PropTypes.func,
+  onChangeTaskTitle: PropTypes.func,
 };
 
 export default function TaskList({
   tasks = [],
   onChangeTaskCompleted = () => {},
   onDeleteTask = () => {},
+  onChangeTaskTitle = () => {},
 }) {
   return tasks.length ? (
     <ul className="todo-list">
@@ -23,6 +25,7 @@ export default function TaskList({
           {...task}
           onChangeTaskCompleted={onChangeTaskCompleted}
           onDeleteTask={onDeleteTask}
+          onChangeTaskTitle={onChangeTaskTitle}
         />
       ))}
     </ul>

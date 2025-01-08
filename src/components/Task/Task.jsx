@@ -10,6 +10,7 @@ Task.propTypes = {
   createdTime: PropTypes.instanceOf(Date),
   onChangeTaskCompleted: PropTypes.func,
   onDeleteTask: PropTypes.func,
+  onChangeTaskTitle: PropTypes.func,
 };
 
 export default function Task({
@@ -19,8 +20,17 @@ export default function Task({
   createdTime = new Date(),
   onChangeTaskCompleted = () => {},
   onDeleteTask = () => {},
+  onChangeTaskTitle = () => {},
 }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [editTitle, setEditTitle] = useState(title);
+
+  function handleTitle(e) {
+    if (e.key === 'Enter') {
+      onChangeTaskTitle(id, editTitle);
+      setIsEdit(false);
+    }
+  }
 
   return (
     <li
@@ -47,7 +57,13 @@ export default function Task({
           onClick={() => onDeleteTask(id)}
         />
       </div>
-      <input type="text" className="task__edit" defaultValue={title} />
+      <input
+        type="text"
+        className="task__edit"
+        defaultValue={editTitle}
+        onChange={(e) => setEditTitle(e.target.value)}
+        onKeyDown={handleTitle}
+      />
     </li>
   );
 }
