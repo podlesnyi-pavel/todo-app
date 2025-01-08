@@ -1,6 +1,14 @@
 import './TaskList.scss';
 
 import Task from '@/Task';
+import PropTypes from 'prop-types';
+
+TaskList.propTypes = {
+  notCompletedTasksLength: PropTypes.number,
+  tasks: PropTypes.array,
+  onChangeTaskCompleted: PropTypes.func,
+  onDeleteTask: PropTypes.func,
+};
 
 export default function TaskList({
   tasks = [],

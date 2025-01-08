@@ -1,5 +1,12 @@
 import './TasksFilter.scss';
 import { filterStatuses } from '~/constants/filterStatuses.js';
+import PropTypes from 'prop-types';
+
+TasksFilterItem.propTypes = {
+  typeFilter: PropTypes.string,
+  filterStatus: PropTypes.string,
+  onChangeFilterStatus: PropTypes.func,
+};
 
 function TasksFilterItem({
   typeFilter = '',
@@ -19,6 +26,11 @@ function TasksFilterItem({
     </li>
   );
 }
+
+TasksFilter.propTypes = {
+  filterStatus: PropTypes.string,
+  onChangeFilterStatus: PropTypes.func,
+};
 
 export default function TasksFilter({
   filterStatus = '',

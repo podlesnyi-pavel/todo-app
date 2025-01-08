@@ -1,5 +1,10 @@
 import { useState } from 'react';
 import './NewTaskForm.scss';
+import PropTypes from 'prop-types';
+
+NewTaskForm.propTypes = {
+  onAddTask: PropTypes.func,
+};
 
 export default function NewTaskForm({ onAddTask = () => {} }) {
   const [text, setText] = useState('');

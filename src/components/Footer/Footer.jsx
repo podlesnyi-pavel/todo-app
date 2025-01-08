@@ -1,6 +1,14 @@
 import './Footer.scss';
 
 import TasksFilter from '@/TasksFilter';
+import PropTypes from 'prop-types';
+
+Footer.propTypes = {
+  notCompletedTasksLength: PropTypes.number,
+  filterStatus: PropTypes.string,
+  onChangeFilterStatus: PropTypes.func,
+  onClearCompletedTask: PropTypes.func,
+};
 
 export default function Footer({
   notCompletedTasksLength = 0,
