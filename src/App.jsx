@@ -6,19 +6,8 @@ import Footer from '@/Footer';
 import NewTaskForm from '@/NewTaskForm';
 import TaskList from '@/TaskList';
 
-const initialTasks = [
-  {
-    id: 1,
-    completed: true,
-    title: 'Completed task',
-    createdTime: new Date(),
-  },
-  { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
-  { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
-];
-
 export default function App() {
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState([]);
   const [filterStatus, setFilterStatus] = useState(filterStatuses.all);
 
   function onChangeTaskCompleted(id) {
@@ -40,7 +29,7 @@ export default function App() {
 
   function handleAddTask(text) {
     const newTask = {
-      id: tasks.at(-1).id + 1,
+      id: tasks.length ? tasks.at(-1).id + 1 : 1,
       completed: false,
       title: text,
       createdTime: new Date(),
