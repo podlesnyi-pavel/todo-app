@@ -1,17 +1,7 @@
-import './Task.scss';
-import { useState } from 'react';
-import { formatDistanceToNow } from 'date-fns';
-import PropTypes from 'prop-types';
-
-Task.propTypes = {
-  id: PropTypes.number,
-  completed: PropTypes.bool,
-  title: PropTypes.string,
-  createdTime: PropTypes.instanceOf(Date),
-  onChangeTaskCompleted: PropTypes.func,
-  onDeleteTask: PropTypes.func,
-  onChangeTaskTitle: PropTypes.func,
-};
+import './Task.scss'
+import { useState } from 'react'
+import { formatDistanceToNow } from 'date-fns'
+import PropTypes from 'prop-types'
 
 export default function Task({
   id = 0,
@@ -22,22 +12,18 @@ export default function Task({
   onDeleteTask = () => {},
   onChangeTaskTitle = () => {},
 }) {
-  const [isEdit, setIsEdit] = useState(false);
-  const [editTitle, setEditTitle] = useState(title);
+  const [isEdit, setIsEdit] = useState(false)
+  const [editTitle, setEditTitle] = useState(title)
 
   function handleTitle(e) {
     if (e.key === 'Enter') {
-      onChangeTaskTitle(id, editTitle);
-      setIsEdit(false);
+      onChangeTaskTitle(id, editTitle)
+      setIsEdit(false)
     }
   }
 
   return (
-    <li
-      className={`task ${completed ? 'task--completed' : ''}${
-        isEdit ? ' task--editing' : ''
-      }`}
-    >
+    <li className={`task ${completed ? 'task--completed' : ''}${isEdit ? ' task--editing' : ''}`}>
       <div className="task__view">
         <input
           className="task__toggle"
@@ -45,17 +31,12 @@ export default function Task({
           checked={completed}
           onChange={() => onChangeTaskCompleted(id)}
         />
-        <label>
+        <div className="label">
           <span className="task__description">{title}</span>
-          <span className="task__created">
-            {formatDistanceToNow(createdTime, { includeSeconds: true })}
-          </span>
-        </label>
-        <button className="icon icon--edit" onClick={() => setIsEdit(true)} />
-        <button
-          className="icon icon--destroy"
-          onClick={() => onDeleteTask(id)}
-        />
+          <span className="task__created">{formatDistanceToNow(createdTime, { includeSeconds: true })}</span>
+        </div>
+        <button type="button" aria-label="edit" className="icon icon--edit" onClick={() => setIsEdit(true)} />
+        <button type="button" aria-label="delete" className="icon icon--destroy" onClick={() => onDeleteTask(id)} />
       </div>
       <input
         type="text"
@@ -65,5 +46,15 @@ export default function Task({
         onKeyDown={handleTitle}
       />
     </li>
-  );
+  )
+}
+
+Task.propTypes = {
+  id: PropTypes.number,
+  completed: PropTypes.bool,
+  title: PropTypes.string,
+  createdTime: PropTypes.instanceOf(Date),
+  onChangeTaskCompleted: PropTypes.func,
+  onDeleteTask: PropTypes.func,
+  onChangeTaskTitle: PropTypes.func,
 }

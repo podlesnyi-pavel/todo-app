@@ -1,15 +1,8 @@
-import './TaskList.scss';
+import './TaskList.scss'
 
-import Task from '@/Task';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-TaskList.propTypes = {
-  notCompletedTasksLength: PropTypes.number,
-  tasks: PropTypes.array,
-  onChangeTaskCompleted: PropTypes.func,
-  onDeleteTask: PropTypes.func,
-  onChangeTaskTitle: PropTypes.func,
-};
+import Task from '@/Task'
 
 export default function TaskList({
   tasks = [],
@@ -19,10 +12,13 @@ export default function TaskList({
 }) {
   return tasks.length ? (
     <ul className="todo-list">
-      {tasks.map((task) => (
+      {tasks.map(({ id, completed, title, createdTime }) => (
         <Task
-          key={task.id}
-          {...task}
+          key={id}
+          id={id}
+          completed={completed}
+          title={title}
+          createdTime={createdTime}
           onChangeTaskCompleted={onChangeTaskCompleted}
           onDeleteTask={onDeleteTask}
           onChangeTaskTitle={onChangeTaskTitle}
@@ -31,5 +27,19 @@ export default function TaskList({
     </ul>
   ) : (
     <div className="empty-tasks">Not available tasks</div>
-  );
+  )
+}
+
+TaskList.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      completed: PropTypes.bool,
+      title: PropTypes.string,
+      createdTime: PropTypes.instanceOf(Date),
+    })
+  ),
+  onChangeTaskCompleted: PropTypes.func,
+  onDeleteTask: PropTypes.func,
+  onChangeTaskTitle: PropTypes.func,
 }

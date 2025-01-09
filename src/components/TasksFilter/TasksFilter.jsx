@@ -1,41 +1,29 @@
-import './TasksFilter.scss';
-import { filterStatuses } from '~/constants/filterStatuses.js';
-import PropTypes from 'prop-types';
+import './TasksFilter.scss'
+import PropTypes from 'prop-types'
 
-TasksFilterItem.propTypes = {
-  typeFilter: PropTypes.string,
-  filterStatus: PropTypes.string,
-  onChangeFilterStatus: PropTypes.func,
-};
+import filterStatuses from '~/constants/filterStatuses'
 
-function TasksFilterItem({
-  typeFilter = '',
-  filterStatus = '',
-  onChangeFilterStatus = () => {},
-}) {
+function TasksFilterItem({ typeFilter = '', filterStatus = '', onChangeFilterStatus = () => {} }) {
   return (
     <li className="filters__item">
       <button
-        className={`filters__filter ${
-          filterStatus === typeFilter ? 'selected' : ''
-        }`}
+        type="button"
+        className={`filters__filter ${filterStatus === typeFilter ? 'selected' : ''}`}
         onClick={() => onChangeFilterStatus(typeFilter)}
       >
         {typeFilter}
       </button>
     </li>
-  );
+  )
 }
 
-TasksFilter.propTypes = {
+TasksFilterItem.propTypes = {
+  typeFilter: PropTypes.string,
   filterStatus: PropTypes.string,
   onChangeFilterStatus: PropTypes.func,
-};
+}
 
-export default function TasksFilter({
-  filterStatus = '',
-  onChangeFilterStatus = () => {},
-}) {
+export default function TasksFilter({ filterStatus = '', onChangeFilterStatus = () => {} }) {
   return (
     <ul className="filters">
       {Object.values(filterStatuses).map((status) => (
@@ -47,5 +35,10 @@ export default function TasksFilter({
         />
       ))}
     </ul>
-  );
+  )
+}
+
+TasksFilter.propTypes = {
+  filterStatus: PropTypes.string,
+  onChangeFilterStatus: PropTypes.func,
 }
