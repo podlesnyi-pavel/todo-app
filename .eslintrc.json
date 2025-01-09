@@ -6,11 +6,7 @@
   "ignorePatterns": ["node_modules", "dist", "build", "vite.config.js"],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:import/errors",
-    "plugin:import/warnings",
     "airbnb",
     "airbnb/hooks",
     "prettier"
@@ -22,14 +18,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier", "import"],
+  "plugins": ["react", "import", "prettier"],
   "rules": {
+    "prettier/prettier": "error",
     "no-unused-vars": "error",
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "prettier/prettier": "error",
     "linebreak-style": [0, "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "import/no-unresolved": [2, { "caseSensitive": false }],
@@ -42,7 +36,6 @@
         "newlines-between": "always"
       }
     ],
-    "jsx-a11y/no-autofocus": "off",
     "react/jsx-no-bind": "off"
   },
   "settings": {

@@ -1,8 +1,7 @@
-import './Footer.scss'
-import PropTypes from 'prop-types'
+import './Footer.scss';
+import PropTypes from 'prop-types';
 
-// import TasksFilter from '../TasksFilter'
-import TasksFilter from '@/TasksFilter'
+import TasksFilter from '@/TasksFilter';
 
 export default function Footer({
   notCompletedTasksLength = 0,
@@ -18,7 +17,7 @@ export default function Footer({
         Clear completed
       </button>
     </footer>
-  )
+  );
 }
 
 Footer.propTypes = {
@@ -26,4 +25,4 @@ Footer.propTypes = {
   filterStatus: PropTypes.string,
   onChangeFilterStatus: PropTypes.func,
   onClearCompletedTask: PropTypes.func,
-}
+};

@@ -1,10 +1,10 @@
-import './App.scss'
-import { useState } from 'react'
+import './App.scss';
+import { useState } from 'react';
 
-import filterStatuses from '~/constants/filterStatuses'
-import Footer from '@/Footer'
-import NewTaskForm from '@/NewTaskForm'
-import TaskList from '@/TaskList'
+import filterStatuses from '~/constants/filterStatuses';
+import Footer from '@/Footer';
+import NewTaskForm from '@/NewTaskForm';
+import TaskList from '@/TaskList';
 
 const initialTasks = [
   {
@@ -15,27 +15,27 @@ const initialTasks = [
   },
   { id: 2, completed: false, title: 'Editing task', createdTime: new Date() },
   { id: 3, completed: false, title: 'Active task', createdTime: new Date() },
-]
+];
 
 export default function App() {
-  const [tasks, setTasks] = useState(initialTasks)
-  const [filterStatus, setFilterStatus] = useState(filterStatuses.all)
+  const [tasks, setTasks] = useState(initialTasks);
+  const [filterStatus, setFilterStatus] = useState(filterStatuses.all);
 
   function onChangeTaskCompleted(id) {
-    const indexTask = tasks.findIndex((item) => item.id === id)
+    const indexTask = tasks.findIndex((item) => item.id === id);
 
     const newTasks = tasks.toSpliced(indexTask, 1, {
       ...tasks[indexTask],
       completed: !tasks[indexTask].completed,
-    })
+    });
 
-    setTasks(newTasks)
+    setTasks(newTasks);
   }
 
   function onDeleteTask(id) {
-    const indexTask = tasks.findIndex((item) => item.id === id)
-    const newTasks = tasks.toSpliced(indexTask, 1)
-    setTasks(newTasks)
+    const indexTask = tasks.findIndex((item) => item.id === id);
+    const newTasks = tasks.toSpliced(indexTask, 1);
+    setTasks(newTasks);
   }
 
   function handleAddTask(text) {
@@ -44,37 +44,37 @@ export default function App() {
       completed: false,
       title: text,
       createdTime: new Date(),
-    }
+    };
 
-    setTasks([...tasks, newTask])
+    setTasks([...tasks, newTask]);
   }
 
   function handleFilterStatus(status) {
-    setFilterStatus(status)
+    setFilterStatus(status);
   }
 
   function onClearCompletedTasks() {
-    setTasks(tasks.filter((task) => !task.completed))
+    setTasks(tasks.filter((task) => !task.completed));
   }
   function onChangeTaskTitle(id, title) {
-    const index = tasks.findIndex((task) => task.id === id)
-    setTasks(tasks.toSpliced(index, 1, { ...tasks[index], title }))
+    const index = tasks.findIndex((task) => task.id === id);
+    setTasks(tasks.toSpliced(index, 1, { ...tasks[index], title }));
   }
 
   function getCurrentTasks() {
     switch (filterStatus) {
       case filterStatuses.active:
-        return tasks.filter((task) => !task.completed)
+        return tasks.filter((task) => !task.completed);
 
       case filterStatuses.completed:
-        return tasks.filter((task) => task.completed)
+        return tasks.filter((task) => task.completed);
 
       default:
-        return tasks
+        return tasks;
     }
   }
 
-  const notCompletedTasksLength = tasks.filter(({ completed }) => !completed).length
+  const notCompletedTasksLength = tasks.filter(({ completed }) => !completed).length;
 
   return (
     <section className="todoapp">
@@ -97,5 +97,5 @@ export default function App() {
         />
       </section>
     </section>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import './TasksFilter.scss'
-import PropTypes from 'prop-types'
+import './TasksFilter.scss';
+import PropTypes from 'prop-types';
 
-import filterStatuses from '~/constants/filterStatuses'
+import filterStatuses from '~/constants/filterStatuses';
 
 function TasksFilterItem({ typeFilter = '', filterStatus = '', onChangeFilterStatus = () => {} }) {
   return (
@@ -14,14 +14,14 @@ function TasksFilterItem({ typeFilter = '', filterStatus = '', onChangeFilterSta
         {typeFilter}
       </button>
     </li>
-  )
+  );
 }
 
 TasksFilterItem.propTypes = {
   typeFilter: PropTypes.string,
   filterStatus: PropTypes.string,
   onChangeFilterStatus: PropTypes.func,
-}
+};
 
 export default function TasksFilter({ filterStatus = '', onChangeFilterStatus = () => {} }) {
   return (
@@ -35,10 +35,10 @@ export default function TasksFilter({ filterStatus = '', onChangeFilterStatus = 
         />
       ))}
     </ul>
-  )
+  );
 }
 
 TasksFilter.propTypes = {
   filterStatus: PropTypes.string,
   onChangeFilterStatus: PropTypes.func,
-}
+};

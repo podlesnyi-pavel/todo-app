@@ -1,8 +1,8 @@
-import './TaskList.scss'
+import './TaskList.scss';
 
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-import Task from '@/Task'
+import Task from '@/Task';
 
 export default function TaskList({
   tasks = [],
@@ -27,7 +27,7 @@ export default function TaskList({
     </ul>
   ) : (
     <div className="empty-tasks">Not available tasks</div>
-  )
+  );
 }
 
 TaskList.propTypes = {
@@ -42,4 +42,4 @@ TaskList.propTypes = {
   onChangeTaskCompleted: PropTypes.func,
   onDeleteTask: PropTypes.func,
   onChangeTaskTitle: PropTypes.func,
-}
+};

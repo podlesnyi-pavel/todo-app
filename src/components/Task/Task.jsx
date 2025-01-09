@@ -1,7 +1,7 @@
-import './Task.scss'
-import { useState } from 'react'
-import { formatDistanceToNow } from 'date-fns'
-import PropTypes from 'prop-types'
+import './Task.scss';
+import { useState } from 'react';
+import { formatDistanceToNow } from 'date-fns';
+import PropTypes from 'prop-types';
 
 export default function Task({
   id = 0,
@@ -12,22 +12,22 @@ export default function Task({
   onDeleteTask = () => {},
   onChangeTaskTitle = () => {},
 }) {
-  const [isEdit, setIsEdit] = useState(false)
-  const [editTitle, setEditTitle] = useState(title)
+  const [isEdit, setIsEdit] = useState(false);
+  const [editTitle, setEditTitle] = useState(title);
 
   function handleEdit() {
-    setIsEdit(true)
+    setIsEdit(true);
   }
 
   function handleTitle(e) {
     if (e.key === 'Enter' && editTitle !== '') {
-      onChangeTaskTitle(id, editTitle)
-      setIsEdit(false)
+      onChangeTaskTitle(id, editTitle);
+      setIsEdit(false);
     }
 
     if (e.key === 'Escape') {
-      setEditTitle(title)
-      setIsEdit(false)
+      setEditTitle(title);
+      setIsEdit(false);
     }
   }
 
@@ -57,7 +57,7 @@ export default function Task({
         onKeyDown={handleTitle}
       />
     </li>
-  )
+  );
 }
 
 Task.propTypes = {
@@ -68,4 +68,4 @@ Task.propTypes = {
   onChangeTaskCompleted: PropTypes.func,
   onDeleteTask: PropTypes.func,
   onChangeTaskTitle: PropTypes.func,
-}
+};
