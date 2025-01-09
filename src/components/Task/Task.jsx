@@ -15,9 +15,18 @@ export default function Task({
   const [isEdit, setIsEdit] = useState(false)
   const [editTitle, setEditTitle] = useState(title)
 
+  function handleEdit() {
+    setIsEdit(true)
+  }
+
   function handleTitle(e) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && editTitle !== '') {
       onChangeTaskTitle(id, editTitle)
+      setIsEdit(false)
+    }
+
+    if (e.key === 'Escape') {
+      setEditTitle(title)
       setIsEdit(false)
     }
   }
@@ -33,15 +42,17 @@ export default function Task({
         />
         <div className="label">
           <span className="task__description">{title}</span>
-          <span className="task__created">{formatDistanceToNow(createdTime, { includeSeconds: true })}</span>
+          <span className="task__created">
+            created {formatDistanceToNow(createdTime, { includeSeconds: true, addSuffix: true })}
+          </span>
         </div>
-        <button type="button" aria-label="edit" className="icon icon--edit" onClick={() => setIsEdit(true)} />
+        <button type="button" aria-label="edit" className="icon icon--edit" onClick={handleEdit} disabled={completed} />
         <button type="button" aria-label="delete" className="icon icon--destroy" onClick={() => onDeleteTask(id)} />
       </div>
       <input
         type="text"
         className="task__edit"
-        defaultValue={editTitle}
+        value={editTitle}
         onChange={(e) => setEditTitle(e.target.value)}
         onKeyDown={handleTitle}
       />

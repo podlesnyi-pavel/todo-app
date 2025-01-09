@@ -7,8 +7,11 @@ export default function NewTaskForm({ onAddTask = () => {} }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    onAddTask(text)
-    setText('')
+
+    if (text) {
+      onAddTask(text)
+      setText('')
+    }
   }
 
   return (

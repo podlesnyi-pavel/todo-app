@@ -110,6 +110,10 @@
       color: #af5b5e;
     }
 
+    &:disabled {
+      color: #cbb7b7;
+    }
+
     &--edit {
       font-size: 19px;
       right: 45px;
